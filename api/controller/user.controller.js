@@ -1,32 +1,60 @@
-import bcrypt from 'bcrypt';
-import User from '../models/User.js';
+import { registerUser, loginUser } from '../services/user.services.js';
+
+
+const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
 
 const register = async (req, res) => {
-    console.log("resgistering user:", req.body);
+    console.log("registering user:", req.body);
 
-    if (!req.body.username || !req.body.password || !req.body || !req.body.email) {
+    if (!req.body.username || !req.body.password || !req.body.email) {
         return res.status(400).json({ message: 'Username, password and e-mail are required' });
     }
 
     const { username, password, email } = req.body;
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // Validação de e-mail
+    if (!isValidEmail(email)) {
+        return res.status(400).json({ message: 'Invalid e-mail format' });
+    }
 
+    // Validação de senha
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+        return res.status(400).json({
+            message: 'Password must be at least 8 characters long and include at least one uppercase and one lowercase letter',
+        });
+    }
 
     try {
-        const savedUser = await User.create({
-            username,
-            email,
-            password: hashedPassword,
-        });
-
+        const savedUser = await registerUser({ username, password, email });
         console.log("saved user:", savedUser);
         return res.status(200).json({ message: 'User registered successfully' });
-    }
-    catch (error) {
+    } catch (error) {
         console.error("Error saving user:", error);
         return res.status(500).json({ message: 'Error saving user' });
     }
 };
-export default { register };
+
+
+const login = async (req, res) => {
+    console.log("logging in user:", req.body);
+
+    if (!req.body.username || !req.body.password || !req.body.email) {
+        return res.status(400).json({ message: 'Username, password, and e-mail are required' });
+    }
+
+    const { username, password, email } = req.body;
+
+    try {
+        const { user, token } = await loginUser({ username, password, email });
+        console.log("User logged in successfully");
+        return res.status(200).json({ message: 'Login successful', token });
+    } catch (error) {
+        console.error("Error logging in user:", error.message);
+        return res.status(500).json({ message: error.message });
+    }
+};
+export default { register, login };
