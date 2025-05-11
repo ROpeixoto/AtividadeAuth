@@ -1,5 +1,5 @@
 curl --request POST \
-  --url 'http://localhost:3000/users/login' \
+  --url 'https://atividade-auth.vercel.app/users/login' \
   --header 'Content-Type: application/json' \
   --data '{
     "password": "Senha123",

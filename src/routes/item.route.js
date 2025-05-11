@@ -8,5 +8,6 @@ router.post('/', verifyToken, itemController.addItem);
 router.get('/', verifyToken, itemController.getItems);
 router.get('/:id', verifyToken, itemController.getItemDetail);
 router.put('/:id', verifyToken, itemController.updateItem);
+router.patch('/:id', verifyToken, itemController.patchItem);
 
 export default router;

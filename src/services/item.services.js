@@ -10,8 +10,9 @@ export const getUserItems = async (userId) => {
 };
 
 export const getItemDetails = async (userId, itemId) => {
-    // Busca o item pelo id e pelo usuário dono
-    return await Item.findOne({ _id: itemId, userId });
+    // Busca o item pelo id e pelo usuário dono, retornando apenas os campos desejados
+    return await Item.findOne({ _id: itemId, userId })
+        .select('name quantity prioridade -_id');
 };
 
 export const updateItemService = async (userId, itemId, data) => {
@@ -20,4 +21,12 @@ export const updateItemService = async (userId, itemId, data) => {
         data,
         { new: true }
     );
+};
+
+export const patchItemService = async (userId, itemId, data) => {
+    return await Item.findOneAndUpdate(
+        { _id: itemId, userId },
+        data,
+        { new: true }
+    ).select('name quantity prioridade -_id');
 };

@@ -4,9 +4,12 @@ import db from './database/configdb.js';
 import userRoute from './routes/user.route.js';
 import exampleRoute from './routes/example.route.js';
 import itemRoute from './routes/item.route.js';
+import User from './models/User.js';
 
 dotenv.config();
 db.connect();
+
+await User.syncIndexes();
 
 const app = express();
 

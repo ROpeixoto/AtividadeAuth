@@ -1,4 +1,4 @@
-import { createItem, getUserItems, getItemDetails, updateItemService } from '../services/item.services.js';
+import { createItem, getUserItems, getItemDetails, updateItemService, patchItemService } from '../services/item.services.js';
 
 const addItem = async (req, res) => {
     const { name, quantity } = req.body;
@@ -57,4 +57,24 @@ const updateItem = async (req, res) => {
     }
 };
 
-export default { addItem, getItems, getItemDetail, updateItem };
+const patchItem = async (req, res) => {
+    const userId = req.userId;
+    const itemId = req.params.id;
+    const data = req.body;
+
+    if (!data || Object.keys(data).length === 0) {
+        return res.status(400).json({ message: 'At least one field is required to update' });
+    }
+
+    try {
+        const item = await patchItemService(userId, itemId, data);
+        if (!item) {
+            return res.status(404).json({ message: 'Item not found or not authorized' });
+        }
+        return res.status(200).json(item);
+    } catch (error) {
+        return res.status(500).json({ message: 'Error updating item', error: error.message });
+    }
+};
+
+export default { addItem, getItems, getItemDetail, updateItem, patchItem };
