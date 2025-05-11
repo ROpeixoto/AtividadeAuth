@@ -42,14 +42,14 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     console.log("logging in user:", req.body);
 
-    if (!req.body.username || !req.body.password || !req.body.email) {
-        return res.status(400).json({ message: 'Username, password, and e-mail are required' });
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).json({ message: 'Password and e-mail are required' });
     }
 
-    const { username, password, email } = req.body;
+    const {email, password} = req.body;
 
     try {
-        const { user, token } = await loginUser({ username, password, email });
+        const { user, token } = await loginUser({ email,password});
         console.log("User logged in successfully");
         return res.status(200).json({ message: 'Login successful', token });
     } catch (error) {

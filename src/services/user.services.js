@@ -15,8 +15,8 @@ export const registerUser = async ({ username, password, email }) => {
     return savedUser;
 };
 
-export const loginUser = async ({ username, password, email }) => {
-    const user = await User.findOne({ username, email }).select('+password');
+export const loginUser = async ({ email , password}) => {
+    const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
         throw new Error('User not found');
