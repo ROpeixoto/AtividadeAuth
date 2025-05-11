@@ -9,5 +9,6 @@ router.get('/', verifyToken, itemController.getItems);
 router.get('/:id', verifyToken, itemController.getItemDetail);
 router.put('/:id', verifyToken, itemController.updateItem);
 router.patch('/:id', verifyToken, itemController.patchItem);
+router.delete('/:id', verifyToken, itemController.deleteItem);
 
 export default router;

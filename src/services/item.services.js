@@ -30,3 +30,7 @@ export const patchItemService = async (userId, itemId, data) => {
         { new: true }
     ).select('name quantity prioridade -_id');
 };
+
+export const deleteItemService = async (userId, itemId) => {
+    return await Item.findOneAndDelete({ _id: itemId, userId });
+};
