@@ -1,8 +1,8 @@
 curl --request POST \
-  --url 'http://localhost:3000/users/login' \
+  --url 'http://localhost:3000/users/register' \
   --header 'Content-Type: application/json' \
   --data '{
-    "username": "RodrigoPeixoto",
+    "username": "Joao",
     "password": "Senha123",
-    "email": "seila@seila.com"
+    "email": "Joao@user.com"
     }'

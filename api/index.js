@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import db from './database/configdb.js';
 import userRoute from './routes/user.route.js';
 import exampleRoute from './routes/example.route.js';
+import itemRoute from './routes/item.route.js';
 
 dotenv.config();
 db.connect();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use("/users", userRoute);
 app.use("/secureExampleRoute", exampleRoute);
+app.use("/items", itemRoute);
 app.get('/', (req,res)=> {
     res.send({message: 'Hello World!'});
 }); 
