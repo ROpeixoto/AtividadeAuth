@@ -1,8 +1,9 @@
+source /workspaces/AtividadeAuth/.env
 curl --request POST \
-  --url 'http://localhost:3000/items' \
+  --url 'https://atividade-auth.vercel.app/items' \
   --header 'Content-Type: application/json' \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjBiMzA0MTI5MTY3MjExN2NiZWZmMiIsImlhdCI6MTc0Njk3MzYzMCwiZXhwIjoxNzQ2OTc3MjMwfQ.ZrMwZ4JdOdFnTahf1ONfMOJZcSEh5Mk4uNDL4XMpkJc' \
+  --header "Authorization: Bearer $TOKEN_JOAO" \
   --data '{
-    "name": "Feijao",
+    "name": "Arroz",
     "quantity": "3 KG"
   }'

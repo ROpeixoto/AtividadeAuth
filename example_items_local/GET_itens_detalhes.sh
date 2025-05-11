@@ -1,3 +1,4 @@
+source /workspaces/AtividadeAuth/.env
 curl --request GET \
-  --url 'http://localhost:3000/items/6820b3fb1291672117cbeffe' \
-  --header 'Authorization: Bearer '
+  --url 'https://atividade-auth.vercel.app/items/6820fa0cbb6e06b67e618d26' \
+  --header "Authorization: Bearer $TOKEN_JOAO"
