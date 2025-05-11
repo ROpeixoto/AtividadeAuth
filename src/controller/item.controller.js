@@ -77,4 +77,21 @@ const patchItem = async (req, res) => {
     }
 };
 
-export default { addItem, getItems, getItemDetail, updateItem, patchItem };
+import { deleteItemService } from '../services/item.services.js';
+
+const deleteItem = async (req, res) => {
+    const userId = req.userId;
+    const itemId = req.params.id;
+
+    try {
+        const item = await deleteItemService(userId, itemId);
+        if (!item) {
+            return res.status(404).json({ message: 'Item not found or not authorized' });
+        }
+        return res.status(200).json({ message: 'Item deleted successfully' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error deleting item', error: error.message });
+    }
+};
+
+export default { addItem, getItems, getItemDetail, updateItem, patchItem, deleteItem };
