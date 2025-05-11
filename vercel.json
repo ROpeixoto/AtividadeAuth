@@ -1,4 +1,16 @@
 {
-	"version": 2,
-	"rewrites": [{ "source": "/(.*)", "destination": "/api" }]
+ "version": 2,
+ "builds": [
+  {
+   "src": "/workspaces/AtividadeAuth/src/index.js",
+   "use": "@vercel/node",
+   "config": { "includeFiles": ["dist/**"] }
+  }
+ ],
+ "routes": [
+  {
+   "src": "/(.*)",
+   "dest": "/workspaces/AtividadeAuth/src/index.js"
+  }
+ ]
 }
