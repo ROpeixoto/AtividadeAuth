@@ -6,7 +6,7 @@ export const createItem = async ({ name, quantity, userId }) => {
 
 export const getUserItems = async (userId) => {
     // Retorna apenas o campo 'name'
-    return await Item.find({ userId }).select('name -_id');
+    return await Item.find({ userId }).select('name quantity prioridade _id');
 };
 
 export const getItemDetails = async (userId, itemId) => {
